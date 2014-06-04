@@ -16,7 +16,6 @@ class SubtitleDownloader:
         self.__params = urlencode(values).encode('utf-8', 'replace')
 
     def download(self):
-
         rsp = urlopen(Request(self.__url, self.__params))
         content = rsp.read().decode('utf-8', 'replace')
         if content == 0xff:
@@ -25,7 +24,6 @@ class SubtitleDownloader:
             subtitle_json = json.loads(content)
             i = 0
             for subinfo in subtitle_json:
-
                 if subinfo["Delay"] != 0:
                     pass
                 else:
@@ -33,7 +31,6 @@ class SubtitleDownloader:
                         link = fileinfo["Link"]
                         ext = fileinfo["Ext"]
                         out_filename = self.__path + "." + self.__lang + '.' + str(i) + "." + ext
-
                         with open(out_filename, 'wb') as output:
                             print "downloading"
                             output.write(urlopen(link).read())
